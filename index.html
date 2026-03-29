@@ -40,37 +40,38 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            padding: 16px;
+            padding: 20px 16px;
             background: #16213e;
             border: 4px solid transparent;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
-            min-height: 100px;
+            min-height: 140px;
             position: relative;
             outline: none;
         }
 
         .channel-number {
-            width: 48px;
-            height: 48px;
+            width: 64px;
+            height: 64px;
             background: #e94560;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .channel-name {
-            font-size: 16px;
+            font-size: 22px;
             text-align: center;
-            color: #a0a0b0;
+            color: #ffffff;
             word-wrap: break-word;
             width: 100%;
+            font-weight: 600;
         }
 
         .channel-button:focus {
@@ -123,12 +124,14 @@
             width: 100%;
             height: 280px;
             background: #0f3460;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: #e94560;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .card-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .card-content {
@@ -183,12 +186,14 @@
             width: 100%;
             height: 180px;
             background: #0f3460;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: #e94560;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .video-content {
@@ -307,6 +312,10 @@
             if (!url) return 'dQw4w9WgXcQ';
             var match = url.match(/[?&]v=([^&]+)/);
             return match ? match[1] : 'dQw4w9WgXcQ';
+        }
+
+        function thumbUrl(videoId) {
+            return 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg';
         }
 
         function sheetsUrl(tab) {
@@ -455,7 +464,7 @@
 
             FEATURED_VIDEOS.forEach(function(video, index) {
                 html += '<button class="featured-card" tabindex="0" data-focus-id="featured-' + index + '">';
-                html += '<div class="card-thumbnail">VIDEO</div>';
+                html += '<div class="card-thumbnail"><img src="' + thumbUrl(video.videoId) + '" alt="' + video.title + '"></div>';
                 html += '<div class="card-content"><div>';
                 html += '<div class="card-title">' + video.title + '</div>';
                 html += '<div class="card-description">' + video.description + '</div>';
@@ -493,7 +502,7 @@
                 category.videos.forEach(function(video, videoIndex) {
                     var focusId = 'category-' + catIndex + '-' + videoIndex;
                     html += '<button class="video-card" tabindex="0" data-focus-id="' + focusId + '">';
-                    html += '<div class="video-thumbnail">VIDEO</div>';
+                    html += '<div class="video-thumbnail"><img src="' + thumbUrl(video.videoId) + '" alt="' + video.title + '"></div>';
                     html += '<div class="video-content">';
                     html += '<div class="video-title">' + video.title + '</div>';
                     html += '<div class="video-meta">' + video.description + '</div>';
